@@ -4,11 +4,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Calculadora simples</title>
+        <style>
+            .Visor {
+                width: 100px;
+                border: 20px;
+                height: 100px;
+                border: 2px solid black;
+                overflow: hidden;
+            }
+        </style>
     </head>
     <body>
-        <button> 1 </button>
-        <button> 2 </button>
-        <button id = 'meuBotao'> 3 </button>
+        <div class = "Visor">
+
+        </div>
+        <button id = 'number'>1</button>
+        <button id = 'number'>2</button>
+        <button id = 'operator'>+</button>
+        <button id = 'operator'>=</button>
+    
         <script src = "script.js"> </script>
     </body>
 </html>
