@@ -4,28 +4,40 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Calculadora simples</title>
-        <style>
-            .Visor {
-                width: 100px;
-                border: 20px;
-                height: 100px;
-                border: 2px solid black;
-                overflow: hidden;
-            }
-        </style>
+        <link rel = 'stylesheet' href = 'styles.css'>
     </head>
     <body>
-        <div class = "Visor">
-
+        <div class = "Main Container">
+            <div class = "Calculator">
+                <div class = "Visor"> </div>
+                <div class = "Digits">
+                    <div class = "Rows">
+                        <button class = 'number'>1</button>
+                        <button class = 'number'>2</button>
+                        <button class = 'number'>3</button>
+                        <button class = 'operator' id = 'sum'>+</button>
+                    </div>
+                    <div class = "Rows">
+                        <button class = 'number'>4</button>
+                        <button class = 'number'>5</button>
+                        <button class = 'number'>6</button>
+                        <button class = 'operator' id = 'subtract'>-</button>
+                    </div>
+                    <div class = "Rows">
+                        <button class = 'number'>7</button>
+                        <button class = 'number'>8</button>
+                        <button class = 'number'>9</button>
+                        <button class = 'operator'  id = 'multiply'>*</button>
+                    </div>
+                    <div class = "Rows">
+                        <button class = 'number' id = 'zero'>0</button>
+                        <button class = 'operator' id = 'equal'>=</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button class = 'number'>1</button>
-        <button class = 'number'>2</button>
-        <button class = 'operator' id = 'sum'> + </button>
-        <button class = 'operator' id = 'subtract'> - </button>
-        <button class = 'operator' id = 'multiply'> * </button>
-        <button class = 'operator' id = 'division'> / </button>
-        <button class = 'operator' id = 'equal'> = </button>
-    
+
+
         <script src = "script.js"> </script>
     </body>
 </html>

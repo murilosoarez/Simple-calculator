@@ -52,12 +52,13 @@ buttons.forEach((button) => {
                 Visor[0].removeChild(Visor[0].firstChild)
             }   
             
+            // This section has the purpose of defining which operating will be made according to the click
+
             if (operator === undefined) {
-                if (n1 === null) {
+                if (n1 === null) { // Fills n1 value if it's the first time the value is being entered
                     n1 = parseInt(number)
                 }
-                console.log('SMT new operator', operator)
-                number = ''
+
                 
                 if (button.id === 'sum') {
                     operator = 'sum' 
@@ -66,17 +67,20 @@ buttons.forEach((button) => {
                 else if (button.id === 'subtract') {
                     operator = 'subtract'
                 }
-
+                
                 else if (button.id === 'division') {
                     operator = 'division'
                 }
-
+                
                 else if (button.id === 'multiply') {
                     operator = 'multiply'
                 }
-            }
 
-            if (button.id === 'equal' && n1 !== null) {
+                number = '' // String variable 'number' is renitialized
+
+            }
+            
+            if (button.id === 'equal' && n1 !== null) { // This section is responsible to determine if n1 is already filled so a calculus between two numbers can be made.
                 n2 = parseInt(number)
                 calculator(n1, n2)
             }
