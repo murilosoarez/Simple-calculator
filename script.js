@@ -3,46 +3,84 @@ const body = document.body
 
 let Visor = document.getElementsByClassName('Visor')
 let number = ''
-let n1 = null
-let n2 = null
-let op
+
+var n1 = null
+var n2 = null
+var operator = undefined
+
+function calculator(a, b) {
+
+    while(Visor[0].hasChildNodes()) {
+        Visor[0].removeChild(Visor[0].firstChild)
+    }   
+
+    if (operator === 'sum') {
+        op = a + b
+        Visor[0].append(op)
+    }
+
+    else if (operator === 'subtract') {
+        op = a - b
+        Visor[0].append(op)
+    }
+
+    else if (operator === 'multiply') {
+        op = a * b
+        Visor[0].append(op)
+    }
+    else if (operator === 'division') {
+        op = a / b
+        Visor[0].append(op)
+    }
+
+    operator = undefined
+    number = ''
+    n1 = op 
+}
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
 
-        if (button.id == 'number') {
+        if (button.className === 'number') {
             Visor[0].append(button.innerHTML)
             number += button.innerHTML
         }
 
-        if (button.id == 'operator') {
+        if (button.className === 'operator') {
             
             while(Visor[0].hasChildNodes()) {
                 Visor[0].removeChild(Visor[0].firstChild)
             }   
             
-            if (button.innerHTML === '+') {
-
+            if (operator === undefined) {
                 if (n1 === null) {
                     n1 = parseInt(number)
-                    console.log('n1', n1)
-                    number = ''
                 }
-    
-                else  {
-                    n2 = parseInt(number)
-                    console.log('n2', n2)
+                console.log('SMT new operator', operator)
+                number = ''
+                
+                if (button.id === 'sum') {
+                    operator = 'sum' 
                 }
 
-                op = n1 + n2
+                else if (button.id === 'subtract') {
+                    operator = 'subtract'
+                }
 
+                else if (button.id === 'division') {
+                    operator = 'division'
+                }
+
+                else if (button.id === 'multiply') {
+                    operator = 'multiply'
+                }
             }
 
-            if (button.innerHTML === '=') {
-                Visor[0].append(op)
+            if (button.id === 'equal' && n1 !== null) {
+                n2 = parseInt(number)
+                calculator(n1, n2)
             }
-
-
         }
     })
 })
+
