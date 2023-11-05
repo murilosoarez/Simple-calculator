@@ -21,6 +21,19 @@
     border: 2px solid black;
     margin: 5%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.Calculator .Visor .Number.Display {
+    font-size: 50px;
+}
+
+.Calculator .Visor .Operation.Display {
+    margin-right: 5px;
+    letter-spacing: 5px;
 }
 
 .Calculator .Digits {
