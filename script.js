@@ -30,8 +30,10 @@ buttons.forEach((button) => {
                 displayController = false
             }
 
-            numberDisplay.append(button.innerHTML)
-            number += button.innerHTML
+            if (n2 === null && operator !== undefined) {
+                numberDisplay.append(button.innerHTML)
+                number += button.innerHTML
+            }
             
             if (n1 !== null) {
                 n2 = parseInt(number)
@@ -42,11 +44,11 @@ buttons.forEach((button) => {
             
             displayController = true 
 
-            operationDisplay.append(number)
             
             if (n1 === null) {
                 n1 = parseInt(number)
             }
+            operationDisplay.append(number)
     
             if (operator === undefined) {
 
@@ -70,6 +72,11 @@ buttons.forEach((button) => {
                     operator = 'multiply'
                 }
 
+                else if (button.id === 'equal') {
+                    operationDisplay.append('=')
+                    operator = 'equal'
+                }
+
                 number = '' // String variable 'number' is renitialized 
             }
             
@@ -90,25 +97,25 @@ function calculator(a, b) {
         op = a + b
     }
 
-    else if (operator === 'subtract') {
-        operationDisplay.append('-')
+    else if (operator === 'subtract') { 
         op = a - b
     }
 
     else if (operator === 'multiply') {
-        operationDisplay.append('*')
         op = a * b
     }
 
     else if (operator === 'division') {
-        operationDisplay.append('/')
         op = a / b
     }
 
     numberDisplay.append(op)
 
-    operator = undefined
     number = ''
+    operator = undefined
     n1 = op 
+    n2 = null
+    console.log('n1: ', n1)
+    console.log('n2: ', n2)
 }
 
