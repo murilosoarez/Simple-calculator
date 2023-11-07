@@ -1,165 +1,130 @@
 const buttons = document.querySelectorAll('button')
-const Visor = document.getElementsByClassName('Visor')
-const body = document.body 
+const operationDisplay = document.getElementsByClassName('Operation Display')
+const numberDisplay = document.getElementsByClassName('Number Display')
 
-let displayExibition_Visor = false
-let button_numberContent = ''
+let buttonStringContent = ''
+let VAL1 = null 
+let VAL2 = null
 let operator = undefined
-let firstValue = null 
-let secondValue = null
-let equalButton = false
+let operationResult
+let equalButton = false 
+let numberDisplayController = false 
 
-function VisorElements() {
-
-    let operationDisplay = document.createElement('div')
-    operationDisplay.className = 'Operation Display'
-
-    let numberDisplay = document.createElement('div')
-    numberDisplay.className = 'Number Display'
-    
-    Visor[0].append(operationDisplay)
-    Visor[0].append(numberDisplay)
-}
-
-VisorElements()
-let operationDisplay_Visor = document.getElementsByClassName('Operation Display')
-let numberDisplay_Visor = document.getElementsByClassName('Number Display')
-
-function findValues() {  
-    
-    if (button_numberContent !== '') {
-
-        if (firstValue === null)  {
-            firstValue = parseInt(button_numberContent)
-            operationDisplay_Visor[0].append(firstValue)
-        }
-
-        else {
-            secondValue = parseInt(button_numberContent)
-            operationDisplay_Visor[0].append(secondValue)
-        }
+function deleteOperationDisplayElements() {
+    while (operationDisplay[0].hasChildNodes()) {
+        operationDisplay[0].removeChild(operationDisplay[0].firstChild)
     }
 }
 
-function operationChooser(buttonID) {
+function deleteNumberDisplayElements() {
+    while (numberDisplay[0].hasChildNodes()) {
+        numberDisplay[0].removeChild(numberDisplay[0].firstChild)
+    }
+}
 
-    if (buttonID === 'sum') {
-        operationDisplay_Visor[0].append('+')
+function addArithmeticSymbol(BTN_ID) {
+
+    if (BTN_ID === 'sum') {
+        operationDisplay[0].append('+')
         operator = 'sum'
     }
-
-    else if (buttonID === 'subtract') {
-        operationDisplay_Visor[0].append('-')
+    if (BTN_ID === 'subtract') {
+        operationDisplay[0].append('-')
         operator = 'subtract'
     }
-
-    else if (buttonID === 'multiply') {
-        operationDisplay_Visor[0].append('*')
+    if (BTN_ID === 'multiply') {
+        operationDisplay[0].append('*')
         operator = 'multiply'
     }
-
-    else if (buttonID === 'division') {
-        operationDisplay_Visor[0].append('/')
-        operator = 'division'
-    }
-    
-    else if (buttonID === 'equal') {
-        operationDisplay_Visor[0].append('=')
-        equalButton = true
-    }
-}
-
-function deleteNumbersInVisor() {
-        while (numberDisplay_Visor[0].hasChildNodes()) {
-            numberDisplay_Visor[0].removeChild(numberDisplay_Visor[0].firstChild)
-        }
-        displayExibition_Visor = false
-}
-
-function deleteOperationsInVisor() {
-    while (operationDisplay_Visor[0].hasChildNodes()) {
-        operationDisplay_Visor[0].removeChild(operationDisplay_Visor[0].firstChild)
+    if (BTN_ID === 'divide') {
+        operationDisplay[0].append('/')
+        operator = 'divide'
     }
 }
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
 
-         /* ========== NUMBER BUTTON =========== */ 
-
-        if (button.className === 'number') {
+        if (button.className === 'Number') {
 
             if (equalButton === true) {
-                deleteOperationsInVisor()
+                deleteNumberDisplayElements()
+                deleteOperationDisplayElements() 
+
+                VAL1 = null 
+                equalButton = false
             }
-            
-            if (displayExibition_Visor === true) {
-                deleteNumbersInVisor()
+
+            if (numberDisplayController === true) {
+                deleteNumberDisplayElements()
+                numberDisplayController = false
             }
-            
-            numberDisplay_Visor[0].append(button.innerHTML)
-            button_numberContent += button.innerHTML
+
+            numberDisplay[0].append(button.innerHTML)
+            buttonStringContent += button.innerHTML
         }
-        
-        /* ========== OPERATOR BUTTON =========== */ 
-        
-        if (button.className === 'operator') { 
-            
-            if (firstValue === null || secondValue === null) {
-                findValues()
-            }
 
-            displayExibition_Visor = true 
+        if (button.className === 'Operator' && (buttonStringContent !== '' || equalButton === true)) {
+
+            numberDisplayController = true
 
             if (equalButton === true) {
-                deleteOperationsInVisor()
-                operationDisplay_Visor[0].append(firstValue)
-                operationChooser()
+                deleteOperationDisplayElements()
+                
+                buttonStringContent = VAL1
+                VAL2 = null
+                equalButton = false
             }
 
-            if ((operator === undefined) && firstValue !== null || secondValue !== null) {
-                operationChooser(button.id)
-                button_numberContent = ''
+            operationDisplay[0].append(buttonStringContent) 
+            
+            if (VAL1 === null) { VAL1 = parseInt(buttonStringContent) }
+            else { VAL2 = parseInt(buttonStringContent)}
+            
+            if (operator === undefined) {
+                addArithmeticSymbol(button.id)
+                buttonStringContent = ''
             }
             
-            if (firstValue !== null && secondValue !== null) {
-                console.log(operator)
-                calculator(firstValue, secondValue)
+            if (VAL1 !== null && VAL2 !== null) {
+                if (button.id === 'equal') {
+                    equalButton = true
+                }
+                calculator(VAL1, VAL2)
             }
         }
     })
 })
 
 function calculator(a, b) {
-    
-    let operationResult
-    
-    while (numberDisplay_Visor[0].hasChildNodes()) {
-        numberDisplay_Visor[0].removeChild(numberDisplay_Visor[0].firstChild)
+
+    if (numberDisplay[0].hasChildNodes()) { deleteNumberDisplayElements() }
+
+    if (equalButton === true) {
+        operationDisplay[0].append('=')
+    }
+    else {
+        addArithmeticSymbol()
     }
 
-    if (operator === 'sum' || equalButton === true) {
+    if (operator === 'sum') {
         operationResult = a + b
     }
-
-    else if (operator === 'subtract' || equalButton === true) { 
+    else if (operator === 'subtract') {
         operationResult = a - b
     }
-
-    else if (operator === 'multiply' || equalButton === true) {
+    else if (operator === 'multiply') {
         operationResult = a * b
     }
-
-    else if (operator === 'division' || equalButton === true) {
+    else if (operator === 'divide') {
         operationResult = a / b
     }
 
-    numberDisplay_Visor[0].append(operationResult)
+    numberDisplay[0].append(operationResult)
     
-    firstValue = operationResult
-    secondValue = null
-
-    operator = undefined
-    button_numberContent = ''
+    VAL1 = operationResult
+    VAL2 = null
+    operator = undefined 
+    buttonStringContent = ''
 
 }
