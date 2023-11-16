@@ -4,7 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Calculadora simples</title>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link rel = 'stylesheet' href = 'styles.css'>
+        <script src = 'script.js'></script>
     </head>
     <body>
         <div class = "Main Container">
@@ -14,38 +16,33 @@
                     <div class = "Number Display"> </div>
                 </div>
                 <div class = "Digits">
-                    <div class = "Rows">
-                        <button class = 'Number'></button>
-                        <button class = 'Number'></button>
-                        <button class = 'Number'></button>
+                    
+                        <button class = 'Operator' id = 'delete'>AC</button>
+                        <button class = 'Operator'> + / - </button>
+                        <button class = 'Operator' id = 'eraser'><i class='bx bxs-tag-x'></i></button>
                         <button class = 'Operator' id = 'division'>/</button>
-                    </div>
-                    <div class = "Rows">
-                        <button class = 'Number'>1</button>
-                        <button class = 'Number'>2</button>
-                        <button class = 'Number'>3</button>
+                   
+                    
+                        <button class = 'Number' id = '1'>1</button>
+                        <button class = 'Number' id = '2'>2</button>
+                        <button class = 'Number' id = '3'>3</button>
                         <button class = 'Operator' id = 'sum'>+</button>
-                    </div>
-                    <div class = "Rows">
-                        <button class = 'Number'>4</button>
-                        <button class = 'Number'>5</button>
-                        <button class = 'Number'>6</button>
+                   
+                    
+                        <button class = 'Number' id = '4'>4</button>
+                        <button class = 'Number' id = '5'>5</button>
+                        <button class = 'Number' id = '6'>6</button>
                         <button class = 'Operator' id = 'subtract'>-</button>
-                    </div>
-                    <div class = "Rows">
-                        <button class = 'Number'>7</button>
-                        <button class = 'Number'>8</button>
-                        <button class = 'Number'>9</button>
-                        <button class = 'Operator'  id = 'multiply'>*</button>
-                    </div>
-                    <div class = "Rows">
-                        <button class = 'number' id = 'zero'>0</button>
+                
+                        <button class = 'Number' id = '7'>7</button>
+                        <button class = 'Number' id = '8'>8</button>
+                        <button class = 'Number' id = '9'>9</button>
+                        <button class = 'Operator' id = 'multiply'>*</button>
+                   
+                        <button class = 'Number' id = '0'>0</button>
                         <button class = 'Operator' id = 'equal'>=</button>
-                    </div>
                 </div>
             </div>
         </div>
-
-        <script src = "script.js"> </script>
     </body>
 </html>

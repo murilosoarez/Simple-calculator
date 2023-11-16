@@ -4,78 +4,85 @@
     box-sizing: border-box;
 }
 
-.Calculator {
-    width: 300px;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    border: 2px solid orange;
-}
-
-.Calculator .Visor {
-    width: 260px;
-    border: 20px;
-    height: 100px;
-    border: 2px solid black;
-    margin: 5%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: end;
-}
-
-.Calculator .Visor .Number.Display {
-    font-size: 50px;
-}
-
-.Calculator .Visor .Operation.Display {
-    margin-right: 5px;
-    letter-spacing: 5px;
-}
-
-.Calculator .Digits {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 260px;
-    height: 300px;
+.Main.Container {
     border: 2px solid red;
-}
-
-.Calculator .Digits .Rows {
+    height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    height: 50px;
-    width: 240px;
-    border: 2px solid black;
-}
-
-.Calculator .Digits .Rows button {
-    width: 50px;
-    height: 40px;
-}
-
-.Calculator .Digits .Rows .zero {
-    display: flex;
     justify-content: center;
+}
+
+.Main.Container .Calculator {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    flex-grow: 1;
-    gap: 20px;
-}
-
-.Calculator .Digits .Rows .operator {
-    background-color: black;
-    color: white;
-    border: 2px solid orange;
-}
-
-.Calculator .Digits .Rows .number {
-    background-color: orange;
-    color: black;
+    justify-content: center;
+    width: 350px;
+    height: 500px;
+    background: #4d65b2;
     border: 2px solid black;
+    border-radius: 25px;
 }
+
+.Main.Container .Calculator .Visor {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-around;
+    padding: 10px;
+    width: 300px;
+    height: 100px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 25px;
+    margin-top: 10px;
+}
+
+.Main.Container .Calculator .Visor .Number.Display {
+    display: flex;
+    font-family: Arial;
+    font-size: 35px;
+}
+
+.Main.Container .Calculator .Visor .Operation.Display {
+    font-family: Arial;
+    font-size: 10px;
+}
+
+.Main.Container .Calculator .Digits {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 55px;
+    grid-template-rows: 50px 50px 50px 50px 50px;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    margin: 20px;
+    border: 2px solid black;
+    width: 300px;
+    background: white;
+    border-radius: 10px;
+}
+
+.Main.Container .Calculator .Digits #zero {
+    width: 110px;
+}
+
+.Main.Container .Calculator .Digits #equal {
+    width: 115px;
+    margin-left: 60px;
+}
+
+.Main.Container .Calculator .Digits .Number {
+    background: orange;
+    border: 2px solid blue;
+}
+
+.Main.Container .Calculator .Digits  #eraser {
+    background: grey;
+    border: 2px solid blue;
+}
+
+.Main.Container .Calculator .Digits .Operator {
+    background: grey;
+}
+
