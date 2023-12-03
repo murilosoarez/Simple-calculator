@@ -1,136 +1,93 @@
+
 document.addEventListener('DOMContentLoaded', () => {
+
     const numberDisplay = document.getElementsByClassName('Number Display')
     const operationDisplay = document.getElementsByClassName('Operation Display')
     const buttons = document.querySelectorAll('button')
 
-    let buttonContent = []
-    let VAL1 = null
-    let VAL2 = null
-    let numberDisplayController = false
-    
-    let typeOfOperation = undefined
-    let equalButtonClicked = false
-    let operationResult
+    let val1 = null 
+    let val2 = null
+    let operator = undefined
+    let NumberOnMyDisplay = false
 
-    let operators = {
-        sum: '+',
-        subtract: '-',
-        multiply: '*',
-        division: '/',
-    }
-
-    function readingNumberInput(btn) {
-        let numberDisplay_Values = document.createElement('div')
-        numberDisplay_Values.append(btn.textContent.trim())
-        numberDisplay[0].append(numberDisplay_Values)
-        buttonContent.push(btn.textContent.trim())
-    }
-
-    function deleteDisplay(displayType) {
-        while (displayType.hasChildNodes()) {
-            displayType.removeChild(displayType.lastChild)
+    function deleteDisplay(display) {
+        while (display.hasChildNodes()) {
+            display.removeChild(display.firstChild)
         }
-    }
-
-    function restartCalculator() {
-        deleteDisplay(numberDisplay[0])
-        deleteDisplay(operationDisplay[0])
-        VAL1 = null
-        VAL2 = null
-    }
-
-    function operationChooser(btnID) {
-        Object.keys(operators).forEach(symbol => {
-            if (btnID === operators[symbol]) {
-                operationDisplay[0].append(operators[symbol])
-                typeOfOperation = operators[symbol]
-            }
-            buttonContent = []
-        })
     }
 
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
 
-            /*=========================== NUMBER EVENTS =======================*/
+            if (button.className === 'Number') {
 
-            if (button.className === 'Number' && equalButtonClicked) {
-                restartCalculator()
-                equalButtonClicked = false
-            }
-            
-            if (button.className === 'Number' && VAL1 === null) {
-                readingNumberInput(button)
-            }
-            
-            if ((button.className === 'Number' && VAL1 !== null)) {
-                if (numberDisplayController === true) {
+                if (NumberOnMyDisplay == true) {
                     deleteDisplay(numberDisplay[0])
-                    numberDisplayController = false
-                }
-                readingNumberInput(button)
-            }
-            
-            /*=========================== OPERATOR EVENTS =======================*/
-            
-            
-            if (button.className === 'Operator' && button.id === 'equal') {
-                equalButtonClicked = true
-            }
-
-            if (button.className === 'Operator' && button.id === 'eraser') {
-                if (numberDisplay[0].hasChildNodes()) {
-                    deleteDisplay(numberDisplay[0])
-                    buttonContent.pop()
-                }
-            }
-            
-            if (button.className === 'Operator' && button.id !== 'eraser') {
-                numberDisplayController = true
-
-                if (VAL1 === null) {
-                    VAL1 = parseInt(buttonContent.join(''))
-                    operationDisplay[0].append(VAL1)
-                    console.log('VAL1 equals to ', VAL1)
-                }
-                else {
-                    VAL2 = parseInt(buttonContent.join(''))
-                    operationDisplay[0].append(VAL2)
-                    console.log('VAL2 equals to ', VAL2)
+                    NumberOnMyDisplay = false 
                 }
 
-                if (equalButtonClicked) {
-                    operationDisplay[0].append('=')
-                    console.log(VAL1, VAL2)
-                }
-                else {
-                    operationChooser(button.textContent.trim())
-                }
-            }
-
-            if (button.className === 'Operator' && button.id !== 'eraser' && (VAL1 !== null && VAL2 !== null)) {
-                deleteDisplay(numberDisplay[0])
-                if (typeOfOperation === '+') {
-                    operationResult = VAL1 + VAL2
-                }
-                else if (typeOfOperation === '-') {
-                    operationResult = VAL1 - VAL2
-                }
-                if (typeOfOperation === '*') {
-                    operationResult = VAL1 * VAL2
-                }
-                if (typeOfOperation === '/') {
-                    operationResult = VAL1 / VAL2
-                }
+                numberDisplay[0].append(button.innerHTML)
                 
-                numberDisplay[0].append(operationResult)
-                VAL1 = operationResult
-                numberDisplayController = true
-
-                VAL2 = null
-                typeOfOperation = undefined
-                buttonContent = []
             }
-         })
+
+            if (button.className === 'Operator') {
+
+                NumberOnMyDisplay = true
+
+                operationDisplay[0].append(numberDisplay[0].innerHTML)
+
+                if (val1 === null) {
+                    val1 = parseInt(numberDisplay[0].innerHTML)
+                }
+                else {
+                    val2 = parseInt(numberDisplay[0].innerHTML)
+                }
+
+                deleteDisplay(numberDisplay[0])
+
+                if (operator == undefined) {
+                    operator = button.id 
+                    operationDisplay[0].append(button.innerHTML)
+                }
+
+                class Calculator {
+                    constructor(a, b) {
+                        this.a = a
+                        this.b = b
+                    }
+                
+                    get result(){
+                        return this.calculation()
+                    }
+                
+                    calculation() {
+                        if (operator === 'sum') {
+                            return this.a + this.b
+                        }
+                        else if (operator === 'subtract') {
+                            return this.a - this.b
+                        }
+                        else if (operator === 'multiply') {
+                            return this.a * this.b
+                        }
+                        else if (operator === 'division') {
+                            return this.a / this.b
+                        }
+                    }
+
+                }
+
+                if (val1 !== null && val2 !== null) {
+
+                    operation = new Calculator(val1, val2)
+                    numberDisplay[0].append(operation.result)
+
+                    val1 = parseInt(numberDisplay[0].innerHTML)
+                    val2 = null
+                    operator = undefined
+
+                }
+            }
+        })
     })
 })
