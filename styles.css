@@ -5,7 +5,6 @@
 }
 
 .Main.Container {
-    border: 2px solid red;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -51,8 +50,8 @@
 
 .Main.Container .Calculator .Digits {
     display: grid;
-    grid-template-columns: 50px 50px 50px 55px;
-    grid-template-rows: 50px 50px 50px 50px 50px;
+    grid-template-columns: repeat(4, 50px);
+    grid-template-rows: repeat(5, 50px);
     justify-content: center;
     gap: 10px;
     padding: 20px;
@@ -63,26 +62,35 @@
     border-radius: 10px;
 }
 
-.Main.Container .Calculator .Digits #zero {
-    width: 110px;
+.Digits #delete {
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 
-.Main.Container .Calculator .Digits #equal {
-    width: 115px;
-    margin-left: 60px;
+.Digits #zero {
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 
-.Main.Container .Calculator .Digits .Number {
+.Digits #equal {
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+
+.Calculator .Digits .Number {
+    border: 2px solid black;
     background: orange;
-    border: 2px solid blue;
 }
 
-.Main.Container .Calculator .Digits  #eraser {
-    background: grey;
-    border: 2px solid blue;
+.Calculator .Digits .Operator , .Calculator .Digits .Tool {
+    border: 2px solid black;
+    background: white;
 }
 
-.Main.Container .Calculator .Digits .Operator {
-    background: grey;
+.Digits .Operator:hover, .Digits .Tool:hover {
+    background: rgb(223, 223, 223);
 }
 
+.Digits .Number:hover {
+    background: rgb(202, 92, 2);
+}

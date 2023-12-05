@@ -5,10 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const operationDisplay = document.getElementsByClassName('Operation Display')
     const buttons = document.querySelectorAll('button')
 
-    let val1 = null 
-    let val2 = null
-    let operator = undefined
+    let firstValue = null 
+    let subsequentValue = null
+    let operatorType = undefined
     let NumberOnMyDisplay = false
+    let equalButtonClicked = false
 
     function deleteDisplay(display) {
         while (display.hasChildNodes()) {
@@ -16,10 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function resetCalculator() {
+        deleteDisplay(numberDisplay[0])
+        deleteDisplay(operationDisplay[0])     
+        firstValue = null
+        subsequentValue = null
+    }
+
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
 
+            
             if (button.className === 'Number') {
+
+                if (equalButtonClicked) {
+                    resetCalculator()
+                    equalButtonClicked = false
+                }
 
                 if (NumberOnMyDisplay == true) {
                     deleteDisplay(numberDisplay[0])
@@ -29,64 +43,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 numberDisplay[0].append(button.innerHTML)
                 
             }
-
+            
             if (button.className === 'Operator') {
-
-                NumberOnMyDisplay = true
+                
+                if (equalButtonClicked) {
+                    deleteDisplay(numberDisplay[0])
+                    deleteDisplay(operationDisplay[0])
+                    operationDisplay[0].append(firstValue)
+                    equalButtonClicked = false
+                }
 
                 operationDisplay[0].append(numberDisplay[0].innerHTML)
-
-                if (val1 === null) {
-                    val1 = parseInt(numberDisplay[0].innerHTML)
+                NumberOnMyDisplay = true
+                
+                if (firstValue === null) {
+                    firstValue = parseInt(numberDisplay[0].innerHTML)
+                    operationDisplay[0].append(button.innerHTML)
                 }
                 else {
-                    val2 = parseInt(numberDisplay[0].innerHTML)
+                    subsequentValue = parseInt(numberDisplay[0].innerHTML)
+                    operation = eval(operationDisplay[0].innerHTML)
+
+                    if (operatorType === undefined) {
+                        operationDisplay[0].append(button.innerHTML)
+                    }
                 }
 
                 deleteDisplay(numberDisplay[0])
+        
+                if (firstValue !== null && subsequentValue !== null) {
 
-                if (operator == undefined) {
-                    operator = button.id 
-                    operationDisplay[0].append(button.innerHTML)
+                    if (button.id === 'equal') {
+                        equalButtonClicked = true
+                    }
+
+                    numberDisplay[0].append(operation)
+
+                    firstValue = operation
+                    subsequentValue = null
+                    operatorType = undefined
+                }
+            }
+
+            if (button.className === 'Tool') {
+
+                if (button.id === 'delete') {
+                    resetCalculator()
                 }
 
-                class Calculator {
-                    constructor(a, b) {
-                        this.a = a
-                        this.b = b
-                    }
+                if (button.id === 'eraser') {
+                    numberDisplay[0].removeChild(numberDisplay[0].firstChild)
+                }
                 
-                    get result(){
-                        return this.calculation()
-                    }
-                
-                    calculation() {
-                        if (operator === 'sum') {
-                            return this.a + this.b
-                        }
-                        else if (operator === 'subtract') {
-                            return this.a - this.b
-                        }
-                        else if (operator === 'multiply') {
-                            return this.a * this.b
-                        }
-                        else if (operator === 'division') {
-                            return this.a / this.b
-                        }
-                    }
-
-                }
-
-                if (val1 !== null && val2 !== null) {
-
-                    operation = new Calculator(val1, val2)
-                    numberDisplay[0].append(operation.result)
-
-                    val1 = parseInt(numberDisplay[0].innerHTML)
-                    val2 = null
-                    operator = undefined
-
-                }
             }
         })
     })
